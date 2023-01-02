@@ -1,0 +1,27 @@
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        unordered_map<char,int>secret_word;
+        unordered_map<char,int>guess_word;
+        int sz=guess.size();
+        int bulls=0;
+        for(int i=0;i<sz;i++){
+            if(secret[i]==guess[i]){
+              bulls++;
+            }
+            secret_word[secret[i]]+=1;
+            guess_word[guess[i]]+=1;
+        }
+        string ans=to_string(bulls);
+        ans+='A';
+        int cows=0;
+        for(auto it:secret_word){
+               if(guess_word.find(it.first)!=guess_word.end()){
+                   cows+=it.second>guess_word[it.first]?guess_word[it.first]:it.second;
+               }
+        }
+        ans+=to_string(cows-bulls);
+        ans+='B';
+        return ans;
+    }
+};
