@@ -1,0 +1,37 @@
+class Solution {
+public:
+bool dfs(vector<vector<int>>&adj,vector<bool>&vis,vector<bool>&path_vis,int start){
+        
+        vis[start]=1;
+        path_vis[start]=1;
+        for(int i=0;i<adj[start].size();i++){
+            
+           if(!vis[adj[start][i]]){
+              if(dfs(adj,vis,path_vis,adj[start][i])==false)return false;
+           }
+            else if(vis[adj[start][i]]==path_vis[adj[start][i]]){
+                
+                return false;
+            }
+            
+        }
+        path_vis[start]=0;
+       
+        return true;
+    }
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<vector<int>>adj(numCourses);
+        for(int i=0;i<prerequisites.size();i++){
+            adj[prerequisites[i][1]].push_back(prerequisites[i][0]);
+        }
+       
+        vector<bool>vis(numCourses);
+        vector<bool>path_vis(numCourses);
+        
+        
+         for(int i=0;i<numCourses;i++){
+             if(!vis[i]&&dfs(adj,vis,path_vis,i)==false) return false;
+         }
+        return true;
+    }
+};
