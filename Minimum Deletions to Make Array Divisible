@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int minOperations(vector<int>& nums, vector<int>& numsDivide) {
+        sort(nums.begin(),nums.end());
+        int frac=numsDivide[0];
+         for(int i=1;i<numsDivide.size();i++){
+             frac=gcd(frac,numsDivide[i]);
+            
+         }
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]>frac)return -1;
+            if(frac%nums[i]==0){
+                return i;
+            }
+        } 
+        return -1;
+    }
+};
