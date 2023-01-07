@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int minimumCardPickup(vector<int>& cards) {
+        int n=cards.size();
+       vector<pair<int,int>>nums;
+        for(int i=0;i<n;i++){
+            nums.push_back({cards[i],i});
+        }
+        sort(nums.begin(),nums.end());
+        int ans=INT_MAX;
+        for(int i=0;i<n-1;i++){
+            if(nums[i].first==nums[i+1].first){
+               ans=min(ans,nums[i+1].second-nums[i].second);
+            }
+            else{
+                continue;
+            }
+        }
+        if(ans==INT_MAX)return -1;
+        return ans+1;
+    }
+};
