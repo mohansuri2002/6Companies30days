@@ -1,0 +1,22 @@
+
+class Solution {
+public:
+
+pair<int,int>f(TreeNode* root,int &count){
+    if(root==NULL)return {0,0};
+    pair<int,int>left=f(root->left,count);
+    pair<int,int>right=f(root->right,count);
+    int tot_val=left.first+right.first+root->val;
+    int tot_count=left.second+right.second+1;
+    if(tot_val/tot_count==root->val){
+       
+        count+=1;
+    }
+    return {tot_val,tot_count};
+}
+    int averageOfSubtree(TreeNode* root) {
+        int count=0;
+        f(root,count);
+        return count;
+    }
+};
