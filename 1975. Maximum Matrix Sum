@@ -1,0 +1,28 @@
+class Solution {
+public:
+    long long maxMatrixSum(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+         int count_zero=0;
+         int count_neg=0;
+        long long int sum=0;
+         int max_neg=-1e6;
+         int min_pos=1e6;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+               if(matrix[i][j]==0)count_zero++;
+               else if(matrix[i][j]<0)
+               {
+               max_neg=max(max_neg,matrix[i][j]);
+               count_neg++;
+               }
+               else{
+                   min_pos=min(min_pos,matrix[i][j]);
+               }
+               sum+=abs(matrix[i][j]);
+            }
+        }
+        if(count_neg%2==0||count_zero>0)return sum;
+        if(abs(max_neg)>min_pos)return sum-(2*min_pos);
+        return sum+(2*max_neg);
+    }
+};
