@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
+     
+        vector<vector<pair<int,int>>>adj(n);
+        for(auto it:edges){
+            adj[it[0]].push_back({it[1],it[2]});
+            adj[it[1]].push_back({it[0],it[2]});
+        }
+        queue<pair<int,int>>q;
+        pair<int,int>p(INT_MAX,0);
+       
+        for(int i=0;i<n;i++){
+           q.push({0,i});
+           vector<int>dist(n,INT_MAX);
+           dist[i]=0;
+           while(!q.empty()){
+               int weight=q.front().first;
+               int node=q.front().second;
+               q.pop();
+               for(auto it:adj[node]){
+                   int newWeight=weight+it.second;
+                   int newNode=it.first;
+                   if(newWeight<=distanceThreshold&&newWeight<dist[newNode]){
+                       dist[newNode]=newWeight;
+                       q.push({newWeight,newNode});
+                   }
+               }
+
+           }
+           int maxCount=0;
+           for(int i=0;i<n;i++){
+              if(dist[i]!=INT_MAX)maxCount++;
+           }
+          if(maxCount<=p.first){
+              
+              p.first=maxCount;
+              p.second=i;
+          }
+        }
+        return p.second;
+    }
+};
