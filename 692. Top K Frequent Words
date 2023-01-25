@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+class Solution {
+    public:
+vector<string> sort(map<string, int>& M,int  k)
+{
+  
+    
+    multimap<int, string, greater<int>> MM;
+  
+    
+    for (auto& it : M) {
+        MM.insert({ it.second, it.first });
+    }
+   vector<string>ans;
+    int i=0;
+    
+    for(auto& it : MM)
+    {
+        if(i==k)break;
+        ans.push_back(it.second);
+        i++;
+    }
+   
+return ans;
+}
+    vector<string> topKFrequent(vector<string>& words, int k) {
+        map<string,int>mp;
+        int n=words.size();
+        for(int i=0;i<n;i++)
+        {
+            mp[words[i]]++;
+        }
+      return  sort(mp,k);   
+    
+    
+   
+    }
+};
