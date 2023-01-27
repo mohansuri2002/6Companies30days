@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string customSortString(string order, string s) {
+        unordered_map<char,int>udm;
+        for(int i=0;i<order.size();i++){
+            udm[order[i]]=i;
+        }
+        multimap<int,char>mp;
+        for(int i=0;i<s.size();i++){
+            if(udm.find(s[i])!=udm.end()){
+              mp.insert({udm[s[i]],s[i]});
+            }
+            else{
+                mp.insert({27,s[i]});
+            }
+        }
+        string st="";
+        for(auto it:mp){
+            st+=it.second;
+        }
+        return st;
+    }
+};
