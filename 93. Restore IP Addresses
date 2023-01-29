@@ -1,0 +1,35 @@
+class Solution {
+  
+public:
+vector<string>ans;
+void f(string s,int start,int n,string temp,int count){
+ 
+    if(count==0){
+        if(start==n){
+        temp.pop_back();
+        ans.push_back(temp);
+        }
+        return;
+    };
+     int val=0;
+     for(int i=start;i<start+3&&i<n;i++){
+        val=(val*10)+(s[i]-'0');
+        
+        if(temp.size()>1&&temp[temp.size()-1]=='0'&&temp[temp.size()-2]=='.'||temp.size()>1&&temp[0]=='0'&&temp[1]!='.')return;
+        
+        if(val<=255&&i<n){
+        temp+=s[i];
+        temp+='.';
+       cout<<temp<<" "<<i<<" "<<count<<endl;
+        f(s,i+1,n,temp,count-1);
+        temp.pop_back();
+       
+        }
+    }
+}
+    vector<string> restoreIpAddresses(string s) {
+        int n=s.size();
+        f(s,0,n,"",4);
+        return ans;
+    }
+};
