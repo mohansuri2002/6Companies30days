@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int networkDelayTime(vector<vector<int>>& times, int n, int k) {
+        queue<pair<int,int>>q;
+        vector<int>dist(n+1,INT_MAX);
+        vector<vector<pair<int,int>>>adj(n+1);
+        for(auto iter:times){
+           adj[iter[0]].push_back({iter[1],iter[2]});
+        }
+        //time node src
+        q.push({0,k});
+        dist[k]=0;
+      
+        while(!q.empty()){
+            int takentime=q.front().first;
+            int src=q.front().second;
+            
+            q.pop();
+             for(auto it:adj[src]){
+                int newtime=takentime+it.second;
+                int node=it.first;
+                if(newtime<dist[node]){
+                    dist[node]=newtime;
+                    q.push({newtime,node});
+                }
+            }
+        }
+        int totalTime=0;
+        for(int i=1;i<=n;i++){
+           if(dist[i]==INT_MAX)return -1;
+           else{
+               totalTime=max(totalTime,dist[i]);
+           }
+        }
+        return totalTime;
+    }
+};
