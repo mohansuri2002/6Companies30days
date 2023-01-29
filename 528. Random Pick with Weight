@@ -1,0 +1,30 @@
+class Solution {
+public:
+   vector<int>r;
+   
+    Solution(vector<int>& w) {
+        r.push_back(w[0]);
+      for(int i=1;i<w.size();i++){
+         r.push_back(r[i-1]+w[i]);
+      }
+    }
+    
+    int pickIndex() {
+        int n=r.size();
+        int res= 1 + (rand() % r[n-1]);
+        int low=0,high=n-1;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(r[mid]==res)return mid;
+            else if(r[mid]<res)low=mid+1;
+            else high=mid-1;
+        }
+        return low;
+    }
+};
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution* obj = new Solution(w);
+ * int param_1 = obj->pickIndex();
+ */
