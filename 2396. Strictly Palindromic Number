@@ -1,0 +1,21 @@
+class Solution {
+    bool isPalindrome(string s){
+        string temp=s;
+        reverse(s.begin(),s.end());
+        if(temp==s)return true;
+        return false;
+    }
+public:
+    bool isStrictlyPalindromic(int n) {
+        for(int i=2;i<=n-2;i++){
+            string s="";
+            int val=n;
+            while(val!=0){
+                s+=to_string(val%i);
+                 val=val/i;
+            }
+            if(isPalindrome(s)==false)return false;
+        }
+        return true;
+    }
+};
