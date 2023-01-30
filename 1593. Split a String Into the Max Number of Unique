@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void f(string s,int start,unordered_set<string>st,int &maxi){
+        if(start==s.size()){
+            int size=st.size();
+            maxi=max(maxi,size);
+           
+            return;
+        }
+         for(int i=start;i<s.size();i++){
+             string temp=s.substr(start,(i-start)+1);
+             if(st.find(temp)!=st.end())continue;
+             st.insert(temp);
+             f(s,i+1,st,maxi);
+             st.erase(temp);
+         }
+         int size=st.size();
+         maxi= max(maxi,size);
+    }
+    int maxUniqueSplit(string s) {
+        int maxi=0;
+        unordered_set<string>st;
+        f(s,0,st,maxi);
+        return maxi;
+    }
+};
