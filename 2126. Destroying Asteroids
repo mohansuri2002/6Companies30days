@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool asteroidsDestroyed(long long int mass, vector<int>& asteroids) {
+        sort(asteroids.begin(),asteroids.end());
+        int n=asteroids.size();
+        if(mass>=asteroids[n-1])return true;
+        if(mass<asteroids[0])return false;
+        int max_ind;
+        for(int i=0;i<n;i++){
+            if(asteroids[i]<=mass){
+                max_ind=i;
+                
+            }else{break;}
+        }
+        int i,j;
+        i=j=max_ind;
+        while(j!=n-1){
+         //cout<<max_ind<<" "<<mass<<endl;
+            if(max_ind<0)return false;
+           mass+=asteroids[max_ind];
+           
+           if(j+1!=n&&asteroids[j+1]<=mass){ 
+               j++;
+               max_ind=j;
+           }else{
+               i=i-1;
+               max_ind=i;
+           }
+        }
+        return true;
+    }
+};
