@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<vector<string>> mostPopularCreator(vector<string>& creators, vector<string>& ids, vector<int>& views) {
+        unordered_map<string,long long int>total_view;
+        unordered_map<string,vector<pair<long long int,string>>>data;
+        priority_queue<pair<long long int,string>>pq;
+        long long int ma=0;
+        int n=creators.size();
+        for(int i=0;i<n;i++){
+            total_view[creators[i]]+=views[i];
+            ma=max(ma, total_view[creators[i]]);
+            data[creators[i]].push_back({views[i],ids[i]});
+        }
+        /*for(auto it:total_view){
+            cout<<it.second<<" ";
+            pq.push({it.second,it.first});
+        }*/
+        
+       // int val=pq.top().first;
+        vector<vector<string>>ans;
+       
+        //while(!pq.empty()&&pq.top().first==val){
+           
+           //int value=pq.top().first;
+           //string s=pq.top().second;
+           //pq.pop();
+           for(auto x:total_view){
+               if(x.second==ma){
+                   string s=x.first;
+           vector<string>temp;
+           temp.push_back(s);
+           sort(data[s].begin(),data[s].end());
+           int max_view=-1;
+           string min_id;
+           for(auto it1:data[s]){
+               if(it1.first>max_view){
+                max_view=it1.first;
+                min_id=it1.second;
+               }
+           }
+           temp.push_back(min_id);
+           ans.push_back(temp);
+        //}
+           }
+           }
+        return ans;
+    }
+};
